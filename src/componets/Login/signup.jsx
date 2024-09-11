@@ -33,7 +33,7 @@ const SignUp=()=>{
     <ButtonGroup pt="1rem">
        <Button colorScheme="green" type="submit"> Create Account</Button>
        <Button onClick={()=>{
-        navigate("/")
+        navigate("/");
        }} leftIcon={<ArrowBackIcon/>}>Back</Button>
     </ButtonGroup>
     </VStack>
