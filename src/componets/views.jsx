@@ -1,10 +1,10 @@
 import { Routes ,Route} from "react-router-dom";
-import Login from "./Login";
-import signup from "./signup";
+import Login from "./Login/Login";
+import SignUp from "./Login/signup";
 const Views=()=>{
    return <Routes>
       <Route path="/" element={<Login/>}/>
-      <Route path="/register" element={<signup/>}/>
+      <Route path="/register" element={<SignUp/>}/>
       <Route path="*" element={<Login/>}/>
    </Routes>
 
