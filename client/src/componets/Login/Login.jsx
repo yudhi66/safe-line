@@ -1,18 +1,16 @@
  import { ButtonGroup,FormControl,FormLabel,Button,FormErrorMessage, VStack, Input, Heading} from "@chakra-ui/react"
  import {Formik, useFormik,Form} from 'formik';
- import * as Yup from "yup";
+   
  import TextField from "./TextField"
 import { useNavigate } from "react-router-dom";
+import formSchema from "@safe-line/common/index.js"
  const Login=()=>{
     const navigate=useNavigate();
   
      return (
      <Formik 
      initialValues={{username:"",password:""}}
-      validationSchema= {Yup.object({
-          username:Yup.string().required("Required Field").min(5,"Username  is too short").max(28,"Username too long"),
-          password:Yup.string().required("Required Field").min(5,"Password is too short").max(28,"Password too long")
-      })}
+      validationSchema=  {formSchema}
       onSubmit={(values,actions)=>{
          const vals={...values};
           
