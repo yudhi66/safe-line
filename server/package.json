@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "@safe-line/server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -15,6 +15,6 @@
     "express": "^4.21.0",
     "helmet": "^7.1.0",
     "socket.io": "^4.7.5",
-    "yup": "^1.4.0"
+     "@safe-line/common" :"^1.0.0"
   }
 }
