@@ -4,7 +4,9 @@ import helmet from 'helmet';
 import { createServer } from 'http';
 import cors from 'cors';
 import authRouter  from './routers/authRouter.js'
+ import session from 'express-session';
 const app = express();
+import { configDotenv } from 'dotenv';
 
 const server = createServer(app);
 const io = new Server(server, {
@@ -24,6 +26,21 @@ app.use(cors({
 
 
 app.use(express.json());
+app.use(session({
+    secret:process.env.COOKIE_SECRET,
+    credentials:true,
+    name:"sid",
+    resave: false,
+    saveUninitialized:false,
+    cookie:{
+        secure:process.env.environment==="production",
+        httpOnly:true,
+        sameSite:  process.env.ENVIRONMENT==="production"?"none":"lax",
+
+    }
+}
+   
+))
 
 app.use("/auth",authRouter);
 
