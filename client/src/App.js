@@ -1,13 +1,16 @@
 import ToggleColorMode from "./componets/ToggleColorMode";
 import Views from "./componets/views";
-
+import UserContext from "./componets/AccountContext";
  
 function App() {
   return (
-   <>
-    <ToggleColorMode/>
-    <Views/>
-   </>
+    <UserContext>
+     <ToggleColorMode/>
+     <Views/>
+    
+    </UserContext>
+   
+  
   );
 }
 

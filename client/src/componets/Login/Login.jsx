@@ -4,7 +4,12 @@
  import TextField from "./TextField"
 import { useNavigate } from "react-router-dom";
 import formSchema from "@safe-line/common/index.js"
+
+import { AccountContext } from "../AccountContext";
+import { useContext } from "react";
  const Login=()=>{
+   const {setUser}=useContext(AccountContext);
+
     const navigate=useNavigate();
   
      return (
@@ -15,26 +20,30 @@ import formSchema from "@safe-line/common/index.js"
          const vals={...values};
           
          actions.resetForm();
-         fetch("http://localhost:4000/auth/login",{
-            method:"POST",
-            credentials:"include",
-            headers:{
-               "Content-Type":"application/json",
-            },
-            body:JSON.stringify(vals)
-         }).catch(err=>{
+         fetch("http://localhost:4000/auth/login", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(vals),
+        })
+          .catch(err => {
             return;
-         }).then(res=>{
-            if(!res || !res.ok || res.status>=400){
-               return ;
+          })
+          .then(res => {
+            if (!res || !res.ok || res.status >= 400) {
+              return;
             }
             return res.json();
-         }).then(data=>{
-            if(!data)return;
-            console.log(data);
-
-         })
-    
+          })
+          .then(data => {
+            if (!data) return;
+            setUser({ ...data });
+             
+              navigate("/home");
+        
+          });
       }}
       >
      

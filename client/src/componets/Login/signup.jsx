@@ -5,8 +5,11 @@ import TextField from "./TextField"
 import { useNavigate } from "react-router-dom";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import formSchema from "@safe-line/common/index.js"
-const SignUp=()=>{
+import { useContext } from "react";
+import { AccountContext } from "../AccountContext";
 
+const SignUp=()=>{
+   const {setUser} =useContext(AccountContext)
   const navigate=useNavigate();
     return (
     <Formik 
@@ -33,7 +36,8 @@ const SignUp=()=>{
           }).then(data=>{
              if(!data)return;
              console.log(data);
- 
+             setUser({...data});
+             navigate("/home") ;
           })
      }}
      >
