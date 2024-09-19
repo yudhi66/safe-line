@@ -4,7 +4,18 @@ const router =express.Router();
 import pool from  "../db.js"
 import bcrypt from "bcrypt"
 
-router.post("/login", async (req,res)=>{
+router.route("/login")
+.get(async (req, res) => {
+  if (req.session.user && req.session.user.username) {
+    res.json({ loggedIn: true, username: req.session.user.username });
+  } else {
+    res.json({ loggedIn: false });
+  }
+})
+
+
+
+.post(  async (req,res)=>{
    validateForm(req,res);
 
     
@@ -22,7 +33,9 @@ router.post("/login", async (req,res)=>{
             id: potentialLogin.rows[0].id,
           }
           console.log("Session after login:", req.session);
-      }else{
+          res.json({ loggedIn: true, username: req.body.username });
+   
+        }else{
         //not good login
         console.log("not good");
         res.json({loggedIn:false,status:"Wrong username or password"});
