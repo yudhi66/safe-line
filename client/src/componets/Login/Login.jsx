@@ -1,4 +1,4 @@
- import { ButtonGroup,FormControl,FormLabel,Button,FormErrorMessage, VStack, Input, Heading} from "@chakra-ui/react"
+ import { ButtonGroup,FormControl,FormLabel,Button,FormErrorMessage, VStack, Input, Heading, Text} from "@chakra-ui/react"
  import {Formik, useFormik,Form} from 'formik';
    
  import TextField from "./TextField"
@@ -6,10 +6,11 @@ import { useNavigate } from "react-router-dom";
 import formSchema from "@safe-line/common/index.js"
 
 import { AccountContext } from "../AccountContext";
-import { useContext } from "react";
+import { useContext,useState } from "react";
+
  const Login=()=>{
    const {setUser}=useContext(AccountContext);
-
+   const [error,setError]=useState(null);
     const navigate=useNavigate();
   
      return (
@@ -40,8 +41,15 @@ import { useContext } from "react";
           .then(data => {
             if (!data) return;
             setUser({ ...data });
+          if(data.status){
+            setError(data.status);
+          }else{
+            navigate("/home");
+          }
+
+            
              
-              navigate("/home");
+            
         
           });
       }}
@@ -51,7 +59,7 @@ import { useContext } from "react";
      justify="center" h="100vh" spacing="1rem"  
      > 
 <Heading>Login</Heading>
-     
+<Text as="p" color="red.500">{error}</Text>    
       <TextField name="username" placeholder="Enter username" autoComplete="off" label="Username"/>
       <TextField name="password" placeholder="Enter password" type="password" autoComplete="off" label="Password" />
      
