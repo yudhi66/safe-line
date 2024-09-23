@@ -5,6 +5,8 @@ import { createServer } from 'http';
 import cors from 'cors';
 import authRouter  from './routers/authRouter.js'
  import session from 'express-session';
+import RedisStore from 'connect-redis' 
+ import { Redis } from 'ioredis';
 const app = express();
 import { configDotenv } from 'dotenv';
 
@@ -16,6 +18,8 @@ const io = new Server(server, {
     }
 });
 
+const redisClient=new Redis();
+ 
 app.use(helmet());
 app.use(cors({
     origin:"http://localhost:3000",
@@ -28,9 +32,11 @@ app.use(cors({
 app.use(express.json());
 app.use(
     session({
+
       secret: process.env.COOKIE_SECRET,
       credentials: true,
       name: "sid",
+      store : new RedisStore({client:redisClient}),
       resave: false,
       saveUninitialized: false,
       cookie: {
