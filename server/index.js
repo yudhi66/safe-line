@@ -1,12 +1,13 @@
 import express from 'express';
 import { Server } from 'socket.io';
+import redisClient from './redis.js';
 import helmet from 'helmet';
 import { createServer } from 'http';
 import cors from 'cors';
 import authRouter  from './routers/authRouter.js'
  import session from 'express-session';
 import RedisStore from 'connect-redis' 
- import { Redis } from 'ioredis';
+ 
 const app = express();
 import { configDotenv } from 'dotenv';
 
@@ -17,8 +18,7 @@ const io = new Server(server, {
         credentials: true,
     }
 });
-
-const redisClient=new Redis();
+ 
  
 app.use(helmet());
 app.use(cors({

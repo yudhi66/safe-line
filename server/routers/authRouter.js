@@ -4,11 +4,12 @@ import { handleLogin,attemptLogin,attemptSignup } from '../controllers/authContr
 const router =express.Router();
 
 import  authController   from "../controllers/authController.js" 
-router.route("/login").get(handleLogin).post(validateForm,  attemptLogin);
-  
-router.post("/signup",validateForm,  attemptSignup);
-
-
+import ratelimiter from '../controllers/limiiter.js';
+router
+.route("/login")
+.get(handleLogin)
+.post(validateForm, ratelimiter(60, 10), attemptLogin);
+router.post("/signup", validateForm, ratelimiter(30, 4), attemptSignup);
 
 
 export default router;
