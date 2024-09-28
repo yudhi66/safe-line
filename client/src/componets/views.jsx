@@ -5,6 +5,7 @@ import SignUp from "./Login/signup";
 import PrivateRoutes from "./PrivateRoutes";
 import UserContext, { AccountContext } from "./AccountContext";
 import { useContext } from "react";
+import HomePage from "./home/Home";
 const Views=()=>{
    const {user}=useContext(AccountContext);
    return user.loggedIn === null ? (
@@ -14,7 +15,7 @@ const Views=()=>{
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
         <Route element={<PrivateRoutes />}>
-          <Route path="/home" element={<Text>Hi welcome home</Text>} />
+          <Route path="/home" element={<HomePage/>} />
         </Route>
         <Route path="*" element={<Login />} />
       </Routes>
