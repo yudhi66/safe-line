@@ -1,7 +1,7 @@
  import { ButtonGroup,FormControl,FormLabel,Button,FormErrorMessage, VStack, Input, Heading, Text} from "@chakra-ui/react"
  import {Formik, useFormik,Form} from 'formik';
    
- import TextField from "./TextField"
+import TextField from "../TextField";
 import { useNavigate } from "react-router-dom";
 import formSchema from "@safe-line/common/index.js"
 
