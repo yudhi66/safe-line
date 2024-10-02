@@ -1,51 +1,31 @@
 import express from 'express';
 import { Server } from 'socket.io';
-import redisClient from './redis.js';
-import helmet from 'helmet';
+ import { sessionMiddleware ,wrap,corsConfig} from './controllers/serverController.js';
+
+ import helmet from 'helmet';
 import { createServer } from 'http';
 import cors from 'cors';
 import authRouter  from './routers/authRouter.js'
- import session from 'express-session';
-import RedisStore from 'connect-redis' 
+ 
  
 const app = express();
 import { configDotenv } from 'dotenv';
-
+ 
 const server = createServer(app);
 const io = new Server(server, {
-    cors: {
-        origin: "http://localhost:3000",
-        credentials: true,
-    }
+    cors: corsConfig
 });
  
  
 app.use(helmet());
-app.use(cors({
-    origin:"http://localhost:3000",
-    credentials:true
-}
-
+app.use(cors( 
+corsConfig
 ));
 
 
 app.use(express.json());
 app.use(
-    session({
-
-      secret: process.env.COOKIE_SECRET,
-      credentials: true,
-      name: "sid",
-      store : new RedisStore({client:redisClient}),
-      resave: false,
-      saveUninitialized: false,
-      cookie: {
-        secure: process.env.ENVIRONMENT === "production" ? "true" : "auto",
-        httpOnly: true,
-        expires: 1000 * 60 * 60 * 24 * 7,
-        sameSite: process.env.ENVIRONMENT === "production" ? "none" : "lax",
-      },
-    })
+    sessionMiddleware
   );
 
 app.use("/auth",authRouter);
@@ -54,8 +34,11 @@ app.get("/", (req, res) => {
     res.json("hi");
 });
 
+ 
+io.use(wrap(sessionMiddleware))
+
 io.on("connect", socket => {
-    console.log("A user connected");
+    console.log(socket.request.session.user.username);
     // Add socket event listeners here
 });
 
