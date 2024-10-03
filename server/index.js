@@ -10,6 +10,7 @@ import authRouter  from './routers/authRouter.js'
  
 const app = express();
 import { configDotenv } from 'dotenv';
+import authorizedUser from './controllers/socketController.js';
  
 const server = createServer(app);
 const io = new Server(server, {
@@ -36,7 +37,7 @@ app.get("/", (req, res) => {
 
  
 io.use(wrap(sessionMiddleware))
-
+io.use(authorizedUser);
 io.on("connect", socket => {
     console.log(socket.id);
     console.log(socket.request.session.user.username);
