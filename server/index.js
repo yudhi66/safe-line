@@ -38,6 +38,7 @@ app.get("/", (req, res) => {
 io.use(wrap(sessionMiddleware))
 
 io.on("connect", socket => {
+    console.log(socket.id);
     console.log(socket.request.session.user.username);
     // Add socket event listeners here
 });
