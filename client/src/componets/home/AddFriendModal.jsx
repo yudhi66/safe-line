@@ -26,12 +26,12 @@ const AddFriendModal = ({ isOpen, onClose }) => {
         <ModalCloseButton />
         <Formik
           initialValues={{ friendName: "" }}
-          onSubmit={values => {
+          onSubmit={(values,{ resetForm }) => {
             onClose();
           }}
           validationSchema={localFriendSchema}
         >
-          <Form>
+          <Form >
             <ModalBody>
               <TextField
                 label="Friend's name"

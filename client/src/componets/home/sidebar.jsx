@@ -39,7 +39,7 @@ const Sidebar=()=>{
                      </VStack>
             
            </VStack>
-           <AddFriendModal isOpen={isOpen} onClose={onClose}/>
+           {isOpen && <AddFriendModal isOpen={isOpen} onClose={onClose} />}
            </>
      )
 }
