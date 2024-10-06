@@ -1,6 +1,7 @@
 
 import pool from  "../db.js"
 import bcrypt from "bcrypt"
+import {v4 as uuidv4} from "uuid"
  export const handleLogin=(req,res)=>{
     if (req.session.user && req.session.user.username) {
         res.json({ loggedIn: true, username: req.session.user.username });
@@ -11,7 +12,7 @@ import bcrypt from "bcrypt"
 
 export const attemptLogin=(async(req,res)=> {
   const potentialLogin = await pool.query(
-    "SELECT id, username, passhash FROM users u WHERE u.username=$1",
+    "SELECT id, username, passhash,userid FROM users u WHERE u.username=$1",
     [req.body.username]
   );
   if(potentialLogin.rowCount >0){
@@ -21,6 +22,7 @@ export const attemptLogin=(async(req,res)=> {
         req.session.user={
             username:req.body.username,
             id: potentialLogin.rows[0].id,
+            userid:potentialLogin.rows[0].userid
           }
           console.log("Session after login:", req.session);
           res.json({ loggedIn: true, username: req.body.username });
@@ -44,10 +46,11 @@ export const attemptSignup=(
      if(existingUser.rowCount===0){
       //register
       const  hashedPass=await bcrypt.hash(req.body.password,10);
-      const newUserQuery=await pool.query("INSERT INTO users(username,passhash) values($1,$2) RETURNING id,username",[req.body.username,hashedPass]);
+      const newUserQuery=await pool.query("INSERT INTO users(username,passhash,userid) values($1,$2,$3) RETURNING id,username,userid",[req.body.username,hashedPass,uuidv4()]);
       req.session.user={
         username:req.body.username,
         id:newUserQuery.rows[0].id,
+        userid:newUserQuery.rows[0].userid,
       }
       res.json({loggedIn:true,username:req.body.username});
      }else{
