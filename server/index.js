@@ -6,11 +6,10 @@ import { Server } from 'socket.io';
 import { createServer } from 'http';
 import cors from 'cors';
 import authRouter  from './routers/authRouter.js'
- 
- 
+  import { authorizedUser ,initializeUser,addFriend} from './controllers/socketController.js';
 const app = express();
 import { configDotenv } from 'dotenv';
-import authorizedUser from './controllers/socketController.js';
+ 
  
 const server = createServer(app);
 const io = new Server(server, {
@@ -39,10 +38,17 @@ app.get("/", (req, res) => {
 io.use(wrap(sessionMiddleware))
 io.use(authorizedUser);
 io.on("connect", socket => {
-   
-    console.log( socket.user.userid)
+     //intializeUser
+     initializeUser(socket);
+
+     console.log( socket.user.userid);
+  socket.on("add_friend", (friendName,cb)=>{
+      addFriend(socket,friendName,cb);
+  } );
     // Add socket event listeners here
 });
+
+ 
 
 server.listen(4000, () => {
     console.log("Server listening on port 4000");
