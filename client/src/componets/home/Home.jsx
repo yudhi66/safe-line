@@ -10,7 +10,7 @@ const HomePage = () => {
      
   ]);
 
-  useSocketSetup();
+  useSocketSetup(setFriendList);
     return   (
        <FriendContext.Provider value={{friendList,setFriendList}}> 
       <Grid templateColumns="repeat(10, 1fr)" h="100vh" as={Tabs}  >
