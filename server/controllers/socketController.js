@@ -12,10 +12,14 @@ const authorizedUser = (socket, next) => {
 
 const initializeUser =async (socket) => {
     socket.user = { ...socket.request.session.user };
+    socket.join(socket.user.userid);
    await redisClient.hset(
         `userid:${socket.user.username}`,
         'userid',
-        socket.user.userid
+       
+        socket.user.userid,
+         "connected",
+         true
     );
     const friendList=await redisClient.lrange(
         `friends:${socket.user.username}`,0,-1
@@ -30,8 +34,8 @@ const addFriend=async (socket,friendName,cb)=>{
         return ;
      }
      
-     const FriendUserID = await redisClient.hget(`userid:${friendName}`,"userid");
-     if(!FriendUserID){
+     const friend= await redisClient.hgetall(`userid:${friendName}` );
+     if(!friend){
         cb({done:false,errorMsg:"User not existing"});
         return;
      }
@@ -48,8 +52,32 @@ const addFriend=async (socket,friendName,cb)=>{
           cb({done:false,errorMsg:"Friend Already added"});
           return ;
      }
-     await redisClient.lpush(`friends:${socket.user.username}`,friendName)
+     await redisClient.lpush(`friends:${socket.user.username}`,[friendName,friend.userid].join("."));
      cb({done:true})
 }
 
-export { authorizedUser, initializeUser ,addFriend};
+const onDisconnsect=async (socket)=>{
+
+    await redisClient.hset(
+        `userid:${socket.user.username}`,
+        "connected",false
+       );
+
+}
+const parseFriendList =async (friendList)=>{
+    const newFriendList=[];
+    for(let friend of friendList){
+        const parsedFriend=friend.split(".")
+      const friendConnected= await redisClient.hget(`userid:${parseFriendList[0]}`,"connected")
+    
+      newFriendList.push({
+        username:parseFriend[0],
+        userid:parsedFriend[1],
+        connected:friendConnected
+      })
+    }
+   return newFriendList;
+};
+
+
+export { authorizedUser, initializeUser ,addFriend,onDisconnsect};
