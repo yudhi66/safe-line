@@ -37,11 +37,11 @@ const AddFriendModal = ({ isOpen, onClose }) => {
         <Formik
           initialValues={{ friendName: "" }}
           onSubmit={(values,{ resetForm }) => {
-            socket.emit("add_friend",values.friendName,({errorMsg,done})=>{
+            socket.emit("add_friend",values.friendName,({errorMsg,done,newFriend})=>{
                   if(done){
 
                     setFriendList(c=> (
-                      [values.friendName, ...c]
+                      [newFriend, ...c]
                     )
                       
                     )
