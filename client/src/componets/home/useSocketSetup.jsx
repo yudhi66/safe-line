@@ -9,9 +9,12 @@ const useSocketSetup = (setFriendList,setMessages) => {
     socket.on("friends", friendList => {
       setFriendList(friendList);
     });
-    socket.on("messages",messages=>{
+    socket.on("messages", messages => {
       setMessages(messages);
-    })
+    });
+    socket.on("dm", message => {
+      setMessages(prevMsgs => [message, ...prevMsgs]);
+    });
 
     socket.on("connected", (status, username) => {
       setFriendList(prevFriends => {
@@ -27,10 +30,14 @@ const useSocketSetup = (setFriendList,setMessages) => {
       setUser({ loggedIn: false });
     });
     return () => {
+      socket.off("dm");
+
       socket.off("connect_error");
       socket.off("connected");
       socket.off("messages");
+      socket.off("friends");
       socket.off("connected");
+
     };
   }, [setUser, setFriendList,setMessages]);
 };

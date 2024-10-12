@@ -22,7 +22,7 @@ const ChatBox = ({userid}) => {
         const message = {to:userid,from:null,content:values.message }
         console.log(JSON.stringify(message));
         socket.emit("dm",message);
-        setMessages(preMsgs =>[message, ...preMsgs]);
+         setMessages(preMsgs =>[message, ...preMsgs]); 
         actions.resetForm();
       }}
     >

@@ -11,7 +11,7 @@ const HomePage = () => {
   ]);
 const [messages,setMessages]=useState([]);
 const [friendIndex,setFriendIndex]=useState(0);
-  useSocketSetup(setFriendList);
+  useSocketSetup(setFriendList,setMessages);
     return   (
        <FriendContext.Provider value={{friendList,setFriendList}}> 
       <Grid templateColumns="repeat(10, 1fr)" h="100vh" as={Tabs} onChange={
