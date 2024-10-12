@@ -6,7 +6,7 @@ import { Server } from 'socket.io';
 import { createServer } from 'http';
 import cors from 'cors';
 import authRouter  from './routers/authRouter.js'
-  import { authorizedUser ,initializeUser,addFriend, onDisconnsect} from './controllers/socketController.js';
+  import { authorizedUser ,initializeUser,addFriend, onDisconnect} from './controllers/socketController.js';
 const app = express();
 import { configDotenv } from 'dotenv';
  
@@ -46,9 +46,7 @@ io.on("connect", socket => {
       addFriend(socket,friendName,cb);
   } );
 
-  socket.on("disconnecting",()=>{
-    onDisconnsect(socket);
-  })
+  socket.on("disconnecting", () => onDisconnect(socket));
     // Add socket event listeners here
 });
 
