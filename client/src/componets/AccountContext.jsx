@@ -26,8 +26,16 @@ const UserContext =({children})=>{
          return;
       }
       console.log(data);
-          navigate("/home") ;
-          setUser({...data});
+  
+
+      setUser({loggedIn:false});
+         if(data.loggedIn===true){
+            navigate("/keyvalidation") ;
+         }else{
+            navigate("/");
+         }
+          
+        /*  setUser({...data});*/
        
    })
 
