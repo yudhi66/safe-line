@@ -26,11 +26,14 @@ const UserContext =({children})=>{
          return;
       }
       console.log(data);
-  
-
+      const userName=data.username;
+      console.log(userName);
+        
       setUser({loggedIn:false});
+    
          if(data.loggedIn===true){
-            navigate("/keyvalidation") ;
+            navigate("/keyvalidation",{state:{username:userName}}) ;
+            
          }else{
             navigate("/");
          }

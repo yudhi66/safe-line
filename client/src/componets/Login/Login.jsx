@@ -40,11 +40,13 @@ import { useContext,useState } from "react";
           })
           .then(data => {
             if (!data) return;
-            setUser({ ...data });
+           
           if(data.status){
             setError(data.status);
           }else{
-            navigate("/home");
+            const userName=data.username;  
+            console.log(userName); 
+            navigate("/keyvalidation",{state:{username:userName}}) ;
           }
 
             
