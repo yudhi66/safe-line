@@ -1,31 +1,3 @@
-import redisClient from "../redis.js";
-
- 
-const ratelimiter = (secondsLimit, limitAmount) => {
-  return async (req, res, next) => {
-    try {
-      const ip = req.connection.remoteAddress;
-      
-     
-      const [response] = await redisClient
-        .multi()
-        .incr(ip)
-        .expire(ip, secondsLimit)
-        .exec();
-       
-      if (response[1] > limitAmount) {
-        res.json({
-          loggedIn: false,
-          status: "Slow down!! Try again in a minute.",
-        });
-      } else {
-        next();  
-      }
-    } catch (error) {
-      console.error("Rate limiter error:", error);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  };
-};
-
-export default ratelimiter;
+version https://git-lfs.github.com/spec/v1
+oid sha256:78927429350c440a85a36099ecde044ae0d6906bfcaa6a11024c424cf05a43fa
+size 713

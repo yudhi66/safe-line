@@ -1,25 +1,3 @@
-import { ColorModeScript } from "@chakra-ui/color-mode";
-import { ChakraProvider } from "@chakra-ui/react";
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import theme from "./theme";
-import {BrowserRouter} from 'react-router-dom';
- 
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-  <BrowserRouter>
-  <ChakraProvider theme={theme}>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <App />
-    </ChakraProvider>
-  
-  </BrowserRouter>
-
-
-      
-  </React.StrictMode>
-);
- 
+version https://git-lfs.github.com/spec/v1
+oid sha256:b411c7362be01357a9b9f8d8e5210d2f9b64b28d28d7469f825eef7ee0e4cfe0
+size 594

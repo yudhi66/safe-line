@@ -1,20 +1,3 @@
-import express from 'express';
-import validateForm from '../controllers/validateForm.js';
-import { handleLogin,attemptLogin,attemptSignup } from '../controllers/authController.js';
-import keyvalidator from '../controllers/keyValidation.js';
-const router =express.Router();
-
-import  authController   from "../controllers/authController.js" 
-import ratelimiter from '../controllers/limiiter.js';
-import challengeCreation from '../controllers/Challenge.js';
-router
-.route("/login")
-.get(handleLogin)
-.post(validateForm, ratelimiter(60, 10), attemptLogin);
-router.post("/signup", validateForm, ratelimiter(30, 4), attemptSignup);
- 
-router.route("/getChallenge").get(challengeCreation);
-router.route("/keyvalidation").post(keyvalidator);
-
-
-export default router;
+version https://git-lfs.github.com/spec/v1
+oid sha256:47d009fcbef28057050f674fe233634b7c9a91bfb74775758cbf1c92ef3f93b8
+size 757

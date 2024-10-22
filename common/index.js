@@ -1,8 +1,3 @@
-import * as Yup from 'yup';
-
-const formSchema=Yup.object({
-    username:Yup.string().required("Username required").min(6,"Username too short").max(28,"Username too long"),
-    password:Yup.string().required("Password required").min(6,"Password too short").max(28,"Password too long")
-})
-
-export default formSchema;
+version https://git-lfs.github.com/spec/v1
+oid sha256:e1f2901e445c3c3121a1ca4803a5c1a101a548e2c181c29ed42eef7e599aa857
+size 315

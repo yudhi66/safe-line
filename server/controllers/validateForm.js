@@ -1,19 +1,3 @@
-import formSchema  from "../../common/index.js"
-
-
-const validateForm =(req,res,next)=>{
-    const formData=req.body;
-    formSchema.validate(formData).catch(err=>{
-        res.status(422).send(); 
-    }).then(valid =>{
-          if(valid){
-             console.log("Form is good");
-             next();
-          }else{
-            res.status(422).send(); 
-            
-          }
-    });
-}
-
-export default  validateForm;
+version https://git-lfs.github.com/spec/v1
+oid sha256:44bcf12c6c97810de6754a1144ac91b262ec6cc1e2769518a1330384cd39f995
+size 422

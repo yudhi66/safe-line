@@ -1,16 +1,3 @@
-import pkg from 'pg';
-import { config as configDotenv } from 'dotenv';
-
-const { Pool } = pkg;  
- 
-configDotenv();
-
-const pool = new Pool({
-  database: process.env.DATABASE_NAME,
-  host: process.env.DATABASE_HOST,
-  password: process.env.DATABASE_PASSWORD,
-  user: process.env.DATABASE_USER,
-  port: process.env.DATABASE_PORT
-});
-
-export default pool;
+version https://git-lfs.github.com/spec/v1
+oid sha256:92604c8a66abcf9fd4f844526c3415d2da9639574db552accacd16fcf7aeb916
+size 351
