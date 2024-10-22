@@ -46,7 +46,8 @@ export const attemptSignup=(
      if(existingUser.rowCount===0){
       //register
       const  hashedPass=await bcrypt.hash(req.body.password,10);
-      const newUserQuery=await pool.query("INSERT INTO users(username,passhash,userid) values($1,$2,$3) RETURNING id,username,userid",[req.body.username,hashedPass,uuidv4()]);
+      const publicKey=req.body.publicKey;
+      const newUserQuery=await pool.query("INSERT INTO users(username,passhash,userid,publickey) values($1,$2,$3,$4) RETURNING id,username,userid",[req.body.username,hashedPass,uuidv4(),publicKey]);
       req.session.user={
         username:req.body.username,
         id:newUserQuery.rows[0].id,

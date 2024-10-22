@@ -68,7 +68,7 @@ const KeyAuth = () => {
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ signature, challenge }),
+              body: JSON.stringify({ signature, challenge,username }),
             })
             .then(res => res.json())
             .then(data => {

@@ -14,7 +14,7 @@ const SignUp=()=>{
   const navigate=useNavigate();
     return (
     <Formik 
-    initialValues={{username:"",password:""}}
+    initialValues={{username:"",password:"",publicKey:""}}
      validationSchema= {formSchema}
      onSubmit={(values,actions)=>{
         const vals={...values};
@@ -54,7 +54,7 @@ const SignUp=()=>{
     <Text as="p" color="red.500">{error}</Text>
      <TextField name="username" placeholder="Enter username" autoComplete="off" label="Username"/>
      <TextField name="password" placeholder="Enter password" type="password" autoComplete="off" label="Password" />
-    
+     <TextField name="publicKey" placeholder="Enter public key"   autoComplete="off" label="PublicKey" />
 
 
     <ButtonGroup pt="1rem">
