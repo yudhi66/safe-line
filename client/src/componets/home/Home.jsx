@@ -9,6 +9,7 @@ const HomePage = () => {
   const [friendList,setFriendList]=useState([
      
   ]);
+  console.log(friendList);
 const [messages,setMessages]=useState([]);
 const [friendIndex,setFriendIndex]=useState(0);
   useSocketSetup(setFriendList,setMessages);
@@ -24,7 +25,7 @@ const [friendIndex,setFriendIndex]=useState(0);
     </GridItem>
     <GridItem colSpan="7" maxH="100vh">
       <MessagesContext.Provider value={{messages,setMessages}}>
-      <Chat userid={friendList[friendIndex]?.userid}/>
+      <Chat userid={friendList[friendIndex]?.userid} username={friendList[friendIndex]?.username}/>
       </MessagesContext.Provider>
     
     </GridItem>

@@ -9,9 +9,9 @@ import { useContext } from "react";
 import { MessagesContext } from "./Home";
  
 
-const ChatBox = ({userid}) => {
+const ChatBox = ({userid,username}) => {
   const {setMessages} =useContext(MessagesContext)
-   
+ 
   return (
     <Formik
       initialValues={{ message: "" }}
@@ -19,7 +19,7 @@ const ChatBox = ({userid}) => {
         message: Yup.string().min(1).max(255),
       })}
       onSubmit={(values, actions) => {
-        const message = {to:userid,from:null,content:values.message }
+        const message = {to:userid,from:null,content:values.message,to_username:username}
         console.log(JSON.stringify(message));
         socket.emit("dm",message);
          setMessages(preMsgs =>[message, ...preMsgs]); 

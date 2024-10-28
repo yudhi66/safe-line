@@ -4,7 +4,7 @@ import { useContext, useEffect, useRef } from "react";
 import { FriendContext, MessagesContext } from "./Home";
 import { Text } from "@chakra-ui/react";
 import ChatBox from "./ChatBox";
-const Chat = ({userid}) => {
+const Chat = ({userid,username}) => {
   const {friendList}=useContext(FriendContext)
    const {messages}=useContext(MessagesContext);
    const bottomDiv =useRef(null);
@@ -46,7 +46,7 @@ const Chat = ({userid}) => {
           ))
          }
       </TabPanels>
-      <ChatBox userid={userid} />
+      <ChatBox userid={userid} username={username} />
     </VStack>
   ):(
     <VStack justify="center" pt="5rem" textAlign="center" fontSize="large">
