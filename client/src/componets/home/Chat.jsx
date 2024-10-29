@@ -39,7 +39,7 @@ const Chat = ({userid,username}) => {
                   borderRadius="10px"
                   p="0.5 rem 1rem"
                >
-                   {message.content}
+                   {typeof message.content === "string" ? message.content : JSON.stringify(message.content)}
                </Text>
                ))}
             </VStack>
