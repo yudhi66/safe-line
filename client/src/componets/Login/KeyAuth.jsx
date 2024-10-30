@@ -75,7 +75,8 @@ const KeyAuth = () => {
               if (data.status) {
                 setError(data.status);
               } else {
-                setUser({ ...data });
+              
+                setUser({ ...data,privateKey });
                 navigate("/home");
               }
             })
