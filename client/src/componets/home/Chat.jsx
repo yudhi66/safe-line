@@ -30,7 +30,7 @@ const Chat = ({ userid, username }) => {
       setDecryptedMessages(decrypted);
     };
     decryptAllMessages();
-  }, [messages, user.privateKey]);
+  }, [messages, user.privateKey,userid]);
 
   useEffect(() => {
     bottomDiv.current?.scrollIntoView();
