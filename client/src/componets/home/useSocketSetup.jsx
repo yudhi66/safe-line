@@ -12,9 +12,24 @@ const useSocketSetup = (setFriendList,setMessages) => {
     socket.on("messages", messages => {
       setMessages(messages);
     });
-    socket.on("dm", message => {
-      setMessages(prevMsgs => [message, ...prevMsgs]);
+  socket.on("dm", message => {
+    setMessages((prevMsgs) => [message, ...prevMsgs]);
+
+    setFriendList((prevFriends) => {
+      const friendIndex = prevFriends.findIndex(friend => friend.userid === message.from || friend.userid === message.to);
+      
+      if (friendIndex === -1) return prevFriends;  
+      
+      const updatedFriends = [...prevFriends];
+      const [friend] = updatedFriends.splice(friendIndex, 1);  
+      updatedFriends.unshift(friend);  
+  
+      return updatedFriends;
     });
+    });
+ 
+ 
+
 
     socket.on("connected", (status, username) => {
       setFriendList(prevFriends => {
